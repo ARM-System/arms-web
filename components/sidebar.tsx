@@ -12,13 +12,14 @@ import {
   FileText,
   Settings,
   Menu,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { SetupStatus } from './setup-status';
+import { logout } from '@/actions/auth';
 
 interface NavItem {
   name: string;
@@ -133,6 +134,13 @@ export default function Sidebar() {
                   user@farm.com
                 </p>
               </div>
+              <button
+                onClick={() => logout()}
+                className="p-2 text-neutral-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
             </div>
             {/* <div className="px-4">
               <SetupStatus showInline />
@@ -142,7 +150,7 @@ export default function Sidebar() {
       </aside>
 
       {/* Spacer for desktop to prevent content from going under sidebar */}
-      <div className="hidden lg:block w-64 flex-shrink-0" />
+      <div className="hidden lg:block w-64 shrink-0" />
     </>
   );
 }

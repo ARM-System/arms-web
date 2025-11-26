@@ -52,7 +52,7 @@ export default function Dashboard(){
 
             {/* Header with gradient */}
             <div className="mb-8">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent mb-3">
+                <h1 className="text-4xl font-bold bg-linear-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent mb-3">
                     Dashboard
                 </h1>
                 <p className="text-lg text-neutral-600">Welcome back! Here's what's happening with your farm today.</p>
@@ -68,7 +68,7 @@ export default function Dashboard(){
                             className="border-neutral-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
                         >
                             {/* Gradient accent bar */}
-                            <div className={`h-1 bg-gradient-to-r ${stat.color}`}></div>
+                            <div className={`h-1 bg-linear-to-r ${stat.color}`}></div>
                             
                             <Card.CardContent className="p-6">
                                 <div className="flex items-start justify-between mb-4">
@@ -135,7 +135,7 @@ export default function Dashboard(){
 
             {/* Recent Activity with modern design */}
             <Card.Card className="border-neutral-200 shadow-lg">
-                <Card.CardHeader className="border-b border-neutral-100 bg-gradient-to-r from-neutral-50 to-transparent">
+                <Card.CardHeader className="border-b border-neutral-100 bg-linear-to-r from-neutral-50 to-transparent">
                     <div className="flex items-center justify-between">
                         <div>
                             <Card.CardTitle className="text-2xl">Recent Activity</Card.CardTitle>

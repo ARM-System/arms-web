@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { login } from "@/actions/auth";
 
 
 export default function Login(){
@@ -18,35 +19,28 @@ export default function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://arms-core.test/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        // Store token or user data as needed
-        localStorage.setItem('authToken', data.token || '');
-        router.push('/dashboard');
-      } else {
-        const err = await response.json();
-        alert(err.message || 'Login failed');
-      }
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('password', password);
+    
+      await login(formData);
+      // If login is successful, redirect to dashboard
+      router.push('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
       alert('An error occurred while logging in');
     }
   };
-
+  
      return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-emerald-50 to-teal-50 flex relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-linear-to-br from-[#1F8A34]/10 to-emerald-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-teal-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-linear-to-tr from-teal-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
       </div>
 
       {/* Left Side - Form */}
@@ -73,9 +67,9 @@ export default function Login(){
           </div>
 
           <Card.Card className="bg-white/70 backdrop-blur-md border-white/50 shadow-2xl rounded-3xl overflow-hidden animate-slide-in">
-            <div className="h-2 bg-gradient-to-r from-[#1F8A34] to-emerald-600"></div>
+            <div className="h-2 bg-linear-to-r from-[#1F8A34] to-emerald-600"></div>
             <Card.CardHeader className="pb-2">
-              <Card.CardTitle className="text-2xl font-bold bg-gradient-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent">
+              <Card.CardTitle className="text-2xl font-bold bg-linear-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent">
                 Welcome back
               </Card.CardTitle>
               <Card.CardDescription className="text-neutral-600">
@@ -128,7 +122,7 @@ export default function Login(){
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 rounded-xl py-6 text-lg font-medium transition-all duration-300 hover:scale-[1.02]"
+                  className="w-full bg-linear-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 rounded-xl py-6 text-lg font-medium transition-all duration-300 hover:scale-[1.02]"
                 >
                   Sign In
                 </Button>
