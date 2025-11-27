@@ -28,21 +28,21 @@ export default function Register(){
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    const formData = new FormData(e.currentTarget);
-    formData.append('name', name);
-    formData.append('farm_name', farmName);
-    formData.append('type', farmType);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('password_confirmation', password_confirmation);
+  //   setLoading(true);
+  //   const formData = new FormData(e.currentTarget);
+  //   formData.append('name', name);
+  //   formData.append('farm_name', farmName);
+  //   formData.append('type', farmType);
+  //   formData.append('email', email);
+  //   formData.append('password', password);
+  //   formData.append('password_confirmation', password_confirmation);
     
-   const res =  await register(formData);
-  if(!res.success){
-    // setErrors(res.errors ?? ['Something went wrong']);
-    setLoading(false);
-    return;
-  }
+  //  const res =  await register(formData);
+  // if(!res.success){
+  //   // setErrors(res.errors ?? ['Something went wrong']);
+  //   setLoading(false);
+  //   return;
+  // }
 
     router.push('/setup');
   };
