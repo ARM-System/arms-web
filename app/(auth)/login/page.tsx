@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { login } from "@/actions/auth";
+import { login } from "@/actions/AuthService";
 
 
 export default function Login(){

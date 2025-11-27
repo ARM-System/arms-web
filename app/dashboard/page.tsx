@@ -1,8 +1,22 @@
 import { LayoutDashboard, Home, Sprout, Bug, TrendingUp } from 'lucide-react';
 import Card from '@/components/card';
 import { SetupStatus } from '@/components/setup-status';
+import { getUser } from '@/actions/UserService';
+import { redirect } from 'next/navigation';
 
-export default function Dashboard(){
+export default async function Dashboard() {
+
+    let user;
+
+    try {
+        // Call the server function to get the user
+        user = await getUser();
+    } catch (err) {
+        // If no token or invalid, redirect to login
+        console.log(err);
+        redirect("/login");
+    }
+    
     const stats = [
         { 
             label: 'Total Farms', 

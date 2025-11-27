@@ -1,6 +1,6 @@
 'use client';
 
-import { login, register } from "@/actions/auth";
+import { login, register } from "@/actions/AuthService";
 import { Button } from "@/components/button";
 import Card from "@/components/card";
 import { Input } from "@/components/input";
