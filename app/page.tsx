@@ -1,7 +1,7 @@
-'use client';
 
 import { Button } from '@/components/button';
 import Card from '@/components/card';
+import { RequestDemoButton, ViewElementButton } from '@/components/subButtons';
 import { 
   Sprout, 
   Activity, 
@@ -16,11 +16,9 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface LandingPageProps {
-  onGetStarted: () => void;
-}
 
-export default function LandingPage({ onGetStarted }: LandingPageProps) {
+
+export default function LandingPage() {
 
   const features = [
     {
@@ -70,7 +68,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200">
+      <nav className="sticky top-0 z-50 bg-white/80 ">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -85,8 +83,8 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
              
             </div>
             <div className="flex items-center gap-4">
-              <Button onClick={()=> document.getElementById("product-features")?.scrollIntoView({ behavior: "smooth",})} variant="ghost" className="text-neutral-700 hover:text-[#1F8A34] hover:bg-emerald-50">Features</Button>
-              <Button onClick={()=> document.getElementById("contact_us")?.scrollIntoView({ behavior: "smooth",})} variant="ghost" className="text-neutral-700 hover:text-[#1F8A34] hover:bg-emerald-50">Contact</Button>
+              <ViewElementButton elementId="product-features" label="Features" />
+              <ViewElementButton elementId="contact_us" label="Contact" />
               <Link href={'/login'}>
                   <Button className="bg-linear-to-r from-[#1F8A34] to-emerald-700 hover:from-[#1a7029] hover:to-emerald-800 text-white shadow-lg shadow-emerald-200">Get Started</Button>
               </Link>
@@ -120,10 +118,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
                 ARMS is the all-in-one agronomy platform for modern farming—inventory, pests, climate, livestock, and yields, unified in one system.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button onClick={onGetStarted} size="lg" className="bg-linear-to-r from-[#1F8A34] to-emerald-700 hover:from-[#1a7029] hover:to-emerald-800 text-white shadow-xl shadow-emerald-200 h-12 px-8 text-base">
-                  Request Demo
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                <RequestDemoButton/>
                 <Button size="lg" variant="outline" className="border-neutral-300 hover:bg-neutral-50 h-12 px-8 text-base">
                   View Documentation
                 </Button>

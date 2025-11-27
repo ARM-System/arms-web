@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, MapPin, Ruler, Home, Sprout, CheckCircle2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/button';
-import Card from '@/components/card';
 import { Input } from '@/components/input';
 import { Label } from '@/components/label';
 import { Select } from '@/components/select';
@@ -81,6 +80,8 @@ export default function FarmSetupWizard() {
     router.push('/dashboard');
   };
 
+  
+
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -108,7 +109,7 @@ export default function FarmSetupWizard() {
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-linear-to-br from-[#1F8A34]/10 to-emerald-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-teal-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-linear-to-tr from-teal-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
@@ -117,7 +118,7 @@ export default function FarmSetupWizard() {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-linear-to-br from-[#1F8A34] to-emerald-600 mb-6 shadow-lg shadow-emerald-500/30">
             <Sparkles className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent mb-3">
+          <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent mb-3">
             Farm Setup Wizard
           </h1>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
@@ -161,7 +162,7 @@ export default function FarmSetupWizard() {
                       <div className="flex-1 mx-3">
                         <div className="h-1 bg-neutral-200 rounded-full overflow-hidden">
                           <div
-                            className={`h-full bg-gradient-to-r from-[#1F8A34] to-emerald-600 transition-all duration-700 ${
+                            className={`h-full bg-linear-to-r from-[#1F8A34] to-emerald-600 transition-all duration-700 ${
                               isCompleted ? 'w-full' : 'w-0'
                             }`}
                           />
@@ -178,7 +179,7 @@ export default function FarmSetupWizard() {
         {/* Form Card with glassmorphism */}
         <div className="bg-white/70 backdrop-blur-md rounded-3xl shadow-2xl border border-white/50 overflow-hidden transition-all duration-500">
           {/* Colorful header bar */}
-          <div className={`h-2 bg-gradient-to-r ${currentStepData.color}`}></div>
+          <div className={`h-2 bg-linear-to-r ${currentStepData.color}`}></div>
           
           <div className="p-8 md:p-10">
             <div className="mb-8">
@@ -321,7 +322,7 @@ export default function FarmSetupWizard() {
                       type="button"
                       size="sm"
                       onClick={getCurrentLocation}
-                      className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white shadow-lg shadow-blue-500/30"
+                      className="bg-linear-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white shadow-lg shadow-blue-500/30"
                     >
                       <MapPin className="w-4 h-4 mr-2" />
                       Auto-Detect
@@ -445,7 +446,7 @@ export default function FarmSetupWizard() {
             {/* Step 4: Additional Information */}
             {currentStep === 4 && (
               <div className="space-y-6 animate-slide-in">
-                <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 mb-6">
+                <div className="bg-linear-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 mb-6">
                   <p className="text-sm text-amber-900 flex items-center gap-2">
                     <Sprout className="w-4 h-4" />
                     These details help us provide tailored recommendations and insights
@@ -572,7 +573,7 @@ export default function FarmSetupWizard() {
               {currentStep === 4 ? (
                 <Button
                   onClick={handleComplete}
-                  className="bg-gradient-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/40 px-8"
+                  className="bg-linear-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/40 px-8"
                 >
                   Complete Setup
                   <CheckCircle2 className="w-5 h-5 ml-2" />
@@ -580,7 +581,7 @@ export default function FarmSetupWizard() {
               ) : (
                 <Button
                   onClick={handleNext}
-                  className="bg-gradient-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/40 px-8"
+                  className="bg-linear-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/40 px-8"
                 >
                   Continue
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -597,7 +598,7 @@ export default function FarmSetupWizard() {
           </p>
           <div className="w-full max-w-md mx-auto mt-2 h-2 bg-neutral-200 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-[#1F8A34] to-emerald-600 transition-all duration-500 ease-out"
+              className="h-full bg-linear-to-r from-[#1F8A34] to-emerald-600 transition-all duration-500 ease-out"
               style={{ width: `${(currentStep / 4) * 100}%` }}
             ></div>
           </div>

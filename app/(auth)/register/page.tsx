@@ -1,12 +1,12 @@
 'use client';
 
+import { login, register } from "@/actions/AuthService";
 import { Button } from "@/components/button";
 import Card from "@/components/card";
-import QuoteBanner from "@/components/farm_quote";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import { Select } from "@/components/select";
-import { ArrowLeft, Building, Home, Lock, Mail, User, Sparkles } from "lucide-react";
+import { ArrowLeft, Building, Home, Lock, Mail, User, Sparkles, AlertCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,16 +18,32 @@ export default function Register(){
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password_confirmation, setPasswordConfirmation] = useState('');
     const [name, setName] = useState('');
     const [farmName, setFarmName] = useState('');
     const [farmType, setFarmType] = useState('');
+    const [errors, setErrors] = useState<string[]>([]);
+    const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Register user with backend and authenticate
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    formData.append('name', name);
+    formData.append('farm_name', farmName);
+    formData.append('type', farmType);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('password_confirmation', password_confirmation);
     
-    // After successful registration, redirect to setup page
-    // New users haven't completed setup yet
+   const res =  await register(formData);
+  if(!res.success){
+    // setErrors(res.errors ?? ['Something went wrong']);
+    setLoading(false);
+    return;
+  }
+
     router.push('/setup');
   };
 
@@ -39,7 +55,7 @@ export default function Register(){
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-linear-to-tr from-teal-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto pt-24 pt-12 md:pt-24 pb-12 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto pt-12 md:pt-24 pb-12 relative z-10">
         <div className="w-full max-w-md my-8">
           <Link href="/">
             <Button
@@ -62,9 +78,9 @@ export default function Register(){
           </div>
 
           <Card.Card className="bg-white/70 backdrop-blur-md border-white/50 shadow-2xl rounded-3xl overflow-hidden animate-slide-in">
-            <div className="h-2 bg-gradient-to-r from-[#1F8A34] to-emerald-600"></div>
+            <div className="h-2 bg-linear-to-r from-[#1F8A34] to-emerald-600"></div>
             <Card.CardHeader className="pb-2">
-              <Card.CardTitle className="text-2xl font-bold bg-gradient-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent">
+              <Card.CardTitle className="text-2xl font-bold bg-linear-to-r from-neutral-900 via-[#1F8A34] to-emerald-700 bg-clip-text text-transparent">
                 Create account
               </Card.CardTitle>
               <Card.CardDescription className="text-neutral-600 text-sm">
@@ -72,6 +88,24 @@ export default function Register(){
               </Card.CardDescription>
             </Card.CardHeader>
             <Card.CardContent>
+              {errors.length > 0 && (
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm mb-4 animate-in fade-in slide-in-from-top-2">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      {errors.length === 1 ? (
+                        <p>{errors[0]}</p>
+                      ) : (
+                        <ul className="list-disc list-inside space-y-1">
+                          {errors.map((error, index) => (
+                            <li key={index}>{error}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="space-y-5 mt-4">
                 <div className="space-y-2 group">
                   <Label htmlFor="name" className="text-sm font-semibold text-neutral-700">Full Name</Label>
@@ -117,11 +151,11 @@ export default function Register(){
                       required
                     >
                       <option value="">Select farm type</option>
-                      <option value="greenhouse">🏠 Greenhouse</option>
-                      <option value="open-field">🌾 Open Field</option>
-                      <option value="hydroponics">💧 Hydroponics</option>
-                      <option value="aquaponics">🐟 Aquaponics</option>
-                      <option value="mixed">🌿 Mixed Farming</option>
+                      <option value="greenhouse">Greenhouse</option>
+                      <option value="open-field">Open Field</option>
+                      <option value="hydroponics">Hydroponics</option>
+                      <option value="aquaponics">Aquaponics</option>
+                      <option value="mixed">Mixed Farming</option>
                     </Select>
                   </div>
                 </div>
@@ -158,9 +192,25 @@ export default function Register(){
                   </div>
                 </div>
 
+                <div className="space-y-2 group">
+                  <Label htmlFor="password_confirmation" className="text-sm font-semibold text-neutral-700">Confirm Password</Label>
+                  <div className="relative transition-all duration-300 focus-within:scale-[1.02]">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 group-focus-within:text-[#1F8A34] transition-colors" />
+                    <Input
+                      id="password_confirmation"
+                      type="password"
+                      placeholder="••••••••"
+                      value={password_confirmation}
+                      onChange={(e) => setPasswordConfirmation(e.target.value)}
+                      className="pl-10 border-2 border-neutral-200 focus:border-[#1F8A34] rounded-xl bg-white/50 focus:bg-white transition-all"
+                      required
+                    />
+                  </div>
+                </div>
+
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 rounded-xl py-6 text-lg font-medium transition-all duration-300 hover:scale-[1.02]"
+                  className="w-full bg-linear-to-r from-[#1F8A34] to-emerald-600 hover:from-[#1a7029] hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/30 rounded-xl py-6 text-lg font-medium transition-all duration-300 hover:scale-[1.02]"
                 >
                   Create Account
                 </Button>

@@ -12,13 +12,16 @@ import {
   FileText,
   Settings,
   Menu,
-  X
+  X,
+  LogOut,
+  ClipboardList,
+  BarChart3
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { SetupStatus } from './setup-status';
+import { logout } from '@/actions/AuthService';
 
 interface NavItem {
   name: string;
@@ -36,6 +39,8 @@ const navItems: NavItem[] = [
   { name: 'Harvest', href: '/dashboard/harvest', icon: Wheat },
   { name: 'Inventory', href: '/dashboard/inventory', icon: Package },
   { name: 'Report', href: '/dashboard/report', icon: FileText },
+  { name: 'Insight', href: '/dashboard/insight', icon: BarChart3 },
+  { name: 'Activity', href: '/dashboard/activity', icon: ClipboardList },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
@@ -90,7 +95,7 @@ export default function Sidebar() {
 
           {/* Navigation Items */}
           <nav className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -110,8 +115,8 @@ export default function Sidebar() {
                         }
                       `}
                     >
-                      <Icon className="w-5 h-5" />
-                      <span className="font-medium">{item.name}</span>
+                      <Icon className="w-3 h-3" />
+                      <span className="font-normal text-sm">{item.name}</span>
                     </Link>
                   </li>
                 );
@@ -133,6 +138,13 @@ export default function Sidebar() {
                   user@farm.com
                 </p>
               </div>
+              <button
+                onClick={() => logout()}
+                className="p-2 text-neutral-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
             </div>
             {/* <div className="px-4">
               <SetupStatus showInline />
@@ -142,7 +154,7 @@ export default function Sidebar() {
       </aside>
 
       {/* Spacer for desktop to prevent content from going under sidebar */}
-      <div className="hidden lg:block w-64 flex-shrink-0" />
+      <div className="hidden lg:block w-64 shrink-0" />
     </>
   );
 }
