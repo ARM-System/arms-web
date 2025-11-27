@@ -39,7 +39,7 @@ export default function Register(){
     
    const res =  await register(formData);
   if(!res.success){
-    setErrors(res.errors ?? ['Something went wrong']);
+    // setErrors(res.errors ?? ['Something went wrong']);
     setLoading(false);
     return;
   }

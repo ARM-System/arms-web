@@ -21,18 +21,20 @@ export default function Login(){
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('email', email);
-      formData.append('password', password);
+    // try {
+    //   const formData = new FormData();
+    //   formData.append('email', email);
+    //   formData.append('password', password);
     
-      await login(formData);
-      // If login is successful, redirect to dashboard
+    //   await login(formData);
+    //   // If login is successful, redirect to dashboard
+    //   router.push('/dashboard');
+    // } catch (error) {
+    //   console.error('Login error:', error);
+    //   alert('An error occurred while logging in');
+    // }
+
       router.push('/dashboard');
-    } catch (error) {
-      console.error('Login error:', error);
-      alert('An error occurred while logging in');
-    }
   };
   
      return (

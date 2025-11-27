@@ -13,7 +13,9 @@ import {
   Settings,
   Menu,
   X,
-  LogOut
+  LogOut,
+  ClipboardList,
+  BarChart3
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -37,6 +39,8 @@ const navItems: NavItem[] = [
   { name: 'Harvest', href: '/dashboard/harvest', icon: Wheat },
   { name: 'Inventory', href: '/dashboard/inventory', icon: Package },
   { name: 'Report', href: '/dashboard/report', icon: FileText },
+  { name: 'Insight', href: '/dashboard/insight', icon: BarChart3 },
+  { name: 'Activity', href: '/dashboard/activity', icon: ClipboardList },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
@@ -91,7 +95,7 @@ export default function Sidebar() {
 
           {/* Navigation Items */}
           <nav className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -111,8 +115,8 @@ export default function Sidebar() {
                         }
                       `}
                     >
-                      <Icon className="w-5 h-5" />
-                      <span className="font-medium">{item.name}</span>
+                      <Icon className="w-3 h-3" />
+                      <span className="font-normal text-sm">{item.name}</span>
                     </Link>
                   </li>
                 );

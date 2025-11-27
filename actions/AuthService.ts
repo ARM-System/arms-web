@@ -1,6 +1,5 @@
 'use server';
 
-import { NextResponse } from "next/server";
 import axios from "axios";
 import { setSession, destroySession } from "@/lib/session";
 import { redirect } from "next/navigation";

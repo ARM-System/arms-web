@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-// import { LandingPage } from '';
-// import { AuthScreen } from './components/AuthScreen';
-// import { Dashboard } from './components/Dashboard';
-// import { GreenhouseManagement } from './components/GreenhouseManagement';
+import LandingPage from '../app/page';
+import AuthScreen from '../app/(auth)/login/page';
+import Dashboard from '../app/dashboard/page';
+import GreenhouseManagement from '../app/dashboard/farm/page';
 // import { BedManagement } from './components/BedManagement';
-// import { CropBatchTracking } from './components/CropBatchTracking';
-// import { PestScouting } from './components/PestScouting';
-// import { NutrientApplication } from './components/NutrientApplication';
-// import { ClimateMonitoring } from './components/ClimateMonitoring';
-// import { HarvestRecords } from './components/HarvestRecords';
-// import { InventoryManagement } from './components/InventoryManagement';
+import CropBatchTracking from '../app/dashboard/crop-batch/page';
+import PestScouting from '../app/dashboard/pest/page';
+import NutrientApplication from '../app/dashboard/nutrient/page';
+import ClimateMonitoring from '../app/dashboard/climate/page';
+import HarvestRecords from '../app/dashboard/harvest/page';
+import InventoryManagement from '../app/dashboard/inventory/page';
 // import { ActivityLog } from './components/ActivityLog';
-// import { ReportsAnalytics } from './components/ReportsAnalytics';
-// import { Settings } from './components/Settings';
-// import { AppLayout } from './components/AppLayout';
+import ReportsAnalytics from '../app/dashboard/report/page';
+import Settings from '../app/dashboard/settings/page';
+import AppLayout from '../app/layout';
 // import { UserProfileProvider } from './components/UserProfileContext';
 // import { Toaster } from './components/ui/sonner';
 
@@ -54,9 +54,9 @@ export default function App() {
 
   if (!isAuthenticated) {
     if (currentScreen === 'landing') {
-      return <LandingPage onGetStarted={() => setCurrentScreen('auth')} />;
+      return <LandingPage />;
     }
-    return <AuthScreen onLogin={handleLogin} onBack={() => setCurrentScreen('landing')} />;
+    return <AuthScreen />;
   }
 
   const renderScreen = () => {
@@ -64,9 +64,9 @@ export default function App() {
       case 'dashboard':
         return <Dashboard />;
       case 'greenhouses':
-        return <GreenhouseManagement onSelectGreenhouse={handleSelectGreenhouse} />;
+        return <GreenhouseManagement />;
       case 'beds':
-        return <BedManagement greenhouseId={selectedGreenhouse} onBack={() => setCurrentScreen('greenhouses')} />;
+        return <div>BedManagement Placeholder</div>;
       case 'crops':
         return <CropBatchTracking />;
       case 'pest':
@@ -80,7 +80,7 @@ export default function App() {
       case 'inventory':
         return <InventoryManagement />;
       case 'activity':
-        return <ActivityLog />;
+        return <div>ActivityLog Placeholder</div>;
       case 'reports':
         return <ReportsAnalytics />;
       case 'settings':
@@ -90,12 +90,9 @@ export default function App() {
     }
   };
 
-//   return (
-//     <UserProfileProvider>
-//       <AppLayout currentScreen={currentScreen} onNavigate={handleNavigate}>
-//         {renderScreen()}
-//       </AppLayout>
-//       <Toaster position="top-right" />
-//     </UserProfileProvider>
-//   );
+  return (
+    <>
+      {renderScreen()}
+    </>
+  );
 }

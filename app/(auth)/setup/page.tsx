@@ -80,6 +80,8 @@ export default function FarmSetupWizard() {
     router.push('/dashboard');
   };
 
+  
+
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
